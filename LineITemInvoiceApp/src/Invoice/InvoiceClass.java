@@ -126,9 +126,8 @@ public class InvoiceClass {
 		LineItemClass tempLineItem = new LineItemClass();
 		for (int i = 0; i < lineItemsList.size(); i++) {
 			tempLineItem = lineItemsList.get(i);
-			
-			//this if statement to check that the item belongs to the invoice we are printing (for future enhancement of the program)
-			if (tempLineItem.getUnitInvoiceNum() == this.getInvoiceNum()) {
+		
+	
 				System.out.printf(" %s %s %s", tempLineItem.getItemDesc(),
 						"\t", "\t");
 				System.out.printf(" %.2f %s %s", tempLineItem.getItemQty(),
@@ -138,7 +137,7 @@ public class InvoiceClass {
 				System.out.printf(" %.2f %n",
 						(tempLineItem.getItemQty() * tempLineItem
 								.getUnitPrice()));
-			}
+			
 		}
 	}
 
