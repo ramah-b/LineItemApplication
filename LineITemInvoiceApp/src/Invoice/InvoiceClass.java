@@ -1,5 +1,6 @@
 package Invoice;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,15 +9,13 @@ import Invoice.LineItemClass;
 public class InvoiceClass {
 
 	private String custName;
-	private double totalAmount;
 	private int invoiceNum;
 	private Date invoiceDate;
 	private ArrayList<LineItemClass> lineItemsList;
 	private double taxRate = 0.05;
 
-	public InvoiceClass(String name, double total, int num) {
+	public InvoiceClass(String name, int num) {
 		custName = name;
-		totalAmount = total;
 		invoiceNum = num;
 		invoiceDate = new Date();
 		lineItemsList = new ArrayList<LineItemClass>();
@@ -28,14 +27,6 @@ public class InvoiceClass {
 
 	public void setCustName(String custName) {
 		this.custName = custName;
-	}
-
-	public double getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(double totalAmount) {
-		this.totalAmount = totalAmount;
 	}
 
 	public int getInvoiceNum() {
@@ -55,7 +46,7 @@ public class InvoiceClass {
 	}
 
 	// set the Line Items object variables
-	public void insertItemList(int qty, String desc, double unitPrice,
+	public void insertItemList(double qty, String desc, double unitPrice,
 			int invoiceNum, boolean taxable, int index) {
 
 		LineItemClass tempLineItem = new LineItemClass();
@@ -70,6 +61,7 @@ public class InvoiceClass {
 
 	}
 
+	// method to calculate the subtotal for the taxable items
 	public double calculateTaxSubtotal() {
 		double taxSubtotal = 0;
 		LineItemClass tempLineItem = new LineItemClass();
@@ -85,6 +77,7 @@ public class InvoiceClass {
 
 	}
 
+	// method to calculate the subtotal for the untaxable items
 	public double calculateUnTaxSubtotal() {
 		double untaxSubtotal = 0;
 		LineItemClass tempLineItem = new LineItemClass();
@@ -100,6 +93,7 @@ public class InvoiceClass {
 
 	}
 
+	// method to calculate the taxes
 	public double calculateTaxTotal() {
 		double taxAmount = 0;
 		LineItemClass tempLineItem = new LineItemClass();
@@ -113,28 +107,44 @@ public class InvoiceClass {
 		}
 		return taxAmount;
 	}
-	
-	public void printInvoice(){
+
+	public void printInvoice() {
 		System.out.println("INVOICE PRINT\n");
+
+		// print invoice header
 		System.out.println("Customer Name: " + this.getCustName());
 		System.out.printf("Invoice Number: %05d", this.getInvoiceNum());
 		System.out.println();
 		System.out.printf("%tD", this.getInvoiceDate());
 		System.out.println("\n");
-		
+
 		System.out.println("Items in this Invoice: ");
-		System.out.println("Description \t Quntity \tUnit Price \tTotal Amount");
-	
+		System.out
+				.println("Description \t Quntity \tUnit Price \tTotal Amount");
+
+		// print invoice items
 		LineItemClass tempLineItem = new LineItemClass();
-		for (int i=0; i < lineItemsList.size(); i++){
+		for (int i = 0; i < lineItemsList.size(); i++) {
 			tempLineItem = lineItemsList.get(i);
-			System.out.printf(" %s %s %s", tempLineItem.getItemDesc(), "\t","\t");
-			System.out.printf(" %d %s %s", tempLineItem.getItemQty(), "\t", "\t");
-			System.out.printf(" %.2f %s %s", tempLineItem.getUnitPrice(), "\t", "\t");
-			System.out.printf(" %.2f %n", (tempLineItem.getItemQty() * tempLineItem.getUnitPrice()));
-		
+			
+			//this if statement to check that the item belongs to the invoice we are printing (for future enhancement of the program)
+			if (tempLineItem.getUnitInvoiceNum() == this.getInvoiceNum()) {
+				System.out.printf(" %s %s %s", tempLineItem.getItemDesc(),
+						"\t", "\t");
+				System.out.printf(" %.2f %s %s", tempLineItem.getItemQty(),
+						"\t", "\t");
+				System.out.printf(" %.2f %s %s", tempLineItem.getUnitPrice(),
+						"\t", "\t");
+				System.out.printf(" %.2f %n",
+						(tempLineItem.getItemQty() * tempLineItem
+								.getUnitPrice()));
+			}
 		}
 	}
+
+	public String getFormattedPrice(double amount) {
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
+		return currency.format(amount);
+	}
+
 }
-
-

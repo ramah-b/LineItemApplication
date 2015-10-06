@@ -2,7 +2,7 @@ package Invoice;
 
 public class LineItemClass {
 
-	private int itemQty;
+	private double itemQty;
 	private String itemDesc;
 	private double unitPrice;
 	private int unitInvoiceNum;
@@ -16,11 +16,11 @@ public class LineItemClass {
 		setTaxable(false);
 	}
 
-	public int getItemQty() {
+	public double getItemQty() {
 		return itemQty;
 	}
 
-	public void setItemQty(int itemQty) {
+	public void setItemQty(double itemQty) {
 		this.itemQty = itemQty;
 	}
 
