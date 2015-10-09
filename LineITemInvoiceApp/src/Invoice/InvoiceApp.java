@@ -2,6 +2,7 @@ package Invoice;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import Invoice.Validation;
 
 import Invoice.InvoiceClass;
 
@@ -26,8 +27,8 @@ public class InvoiceApp {
 		System.out.print("Customer name: ");
 		tempCustName = keyboard.next();
 
-		System.out.print("Invoice number: ");
-		tempInvoiceNum = keyboard.nextInt();
+		
+		tempInvoiceNum = Validation.getInt(keyboard, "Invoice number: ");
 
 		// loop for Lines Items; user may enter many items until he/she quits
 		//inputs will be stored in temporary variables and array lists until the user finishes the entries.
@@ -35,17 +36,21 @@ public class InvoiceApp {
 		do {
 			System.out.println("\nLine item " + (indexCounter + 1));
 
-			System.out.print("Item quantity: ");
-			tempItemQty = keyboard.nextDouble();
+		
+			tempItemQty = Validation.getDouble(keyboard, "Item quantity: "); 
+					
+			//I can have an exception here 
+			
 
 			System.out.print("Item description: ");
 			tempItemDesc = keyboard.next();
 
-			System.out.print("Item unit price: ");
-			tempItemUnitPrice = keyboard.nextDouble();
+			
+			tempItemUnitPrice = Validation.getDouble(keyboard, "Item unit price: ");
 
-			System.out.print("Is taxable? (true or false) ");
-			tempTaxable = keyboard.nextBoolean();
+		
+			tempTaxable =Validation.getBoolean(keyboard,"Is taxable? (true or false) " );
+				
 
 			tempQtyList.add(tempItemQty);
 			tempDescList.add(tempItemDesc);
