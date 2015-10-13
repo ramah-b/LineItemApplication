@@ -44,7 +44,7 @@ public class Validation {
 				System.out
 				.println("Incorrect input. Please enter a valid number.");
 	}finally{
-		System.out.println("This is a finally!!");
+		System.out.println("This is a finally clause.");
 	}
 
 				

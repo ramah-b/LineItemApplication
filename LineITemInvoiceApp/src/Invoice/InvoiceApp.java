@@ -72,12 +72,19 @@ public class InvoiceApp {
 		InvoiceClass myInvoice = new InvoiceClass(tempCustName, tempInvoiceNum);
 
 		// set the line items array of objects to the user's entries
-		for (int j = 0; j < tempQtyList.size(); j++) {
+		try{
+			for (int j = 0; j < tempQtyList.size(); j++) {
 
-			myInvoice.insertItemList(tempQtyList.get(j), tempDescList.get(j),
-					tempPriceList.get(j), tempInvoiceNum,
-					tempTaxableList.get(j), j);
+				myInvoice.insertItemList(tempQtyList.get(j), tempDescList.get(j),
+						tempPriceList.get(j), tempInvoiceNum,
+						tempTaxableList.get(j), j);
+			}	
+		}catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("Failed to save the line items.");			
+		}catch (ArrayStoreException e){
+			System.out.println("Incompatible type assignment.");
 		}
+	
 
 		// print the invoice and the items for this invoice
 		myInvoice.printInvoice();
