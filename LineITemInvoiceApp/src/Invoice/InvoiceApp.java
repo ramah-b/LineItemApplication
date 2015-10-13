@@ -26,31 +26,35 @@ public class InvoiceApp {
 
 		System.out.print("Customer name: ");
 		tempCustName = keyboard.next();
-
-		
+		tempCustName += keyboard.nextLine();
 		tempInvoiceNum = Validation.getInt(keyboard, "Invoice number: ");
 
 		// loop for Lines Items; user may enter many items until he/she quits
-		//inputs will be stored in temporary variables and array lists until the user finishes the entries.
-	
+		// inputs will be stored in temporary variables and array lists until
+		// the user finishes the entries.
+
 		do {
 			System.out.println("\nLine item " + (indexCounter + 1));
 
-		
-			tempItemQty = Validation.getDouble(keyboard, "Item quantity: "); 
-					
-			//I can have an exception here 
-			
+			tempItemQty = Validation.getDouble(keyboard, "Item quantity: ");
+			while (tempItemQty < 0 || tempItemQty > 50) {
+				System.out.println("Item quantity should be > 0 and < 50.");
+				tempItemQty = Validation.getDouble(keyboard, "Item quantity: ");
+			}
 
 			System.out.print("Item description: ");
 			tempItemDesc = keyboard.next();
+			tempItemDesc += keyboard.nextLine();
+			tempItemUnitPrice = Validation.getDouble(keyboard,
+					"Item unit price: ");
+			while (tempItemUnitPrice <= 0 || tempItemUnitPrice > 1000) {
+				System.out.println("Item quantity should be >= 0 and < 1000.");
+				tempItemUnitPrice = Validation.getDouble(keyboard,
+						"Item unit price: ");
+			}
 
-			
-			tempItemUnitPrice = Validation.getDouble(keyboard, "Item unit price: ");
-
-		
-			tempTaxable =Validation.getBoolean(keyboard,"Is taxable? (true or false) " );
-				
+			tempTaxable = Validation.getBoolean(keyboard,
+					"Is taxable? (true or false) ");
 
 			tempQtyList.add(tempItemQty);
 			tempDescList.add(tempItemDesc);
@@ -72,19 +76,18 @@ public class InvoiceApp {
 		InvoiceClass myInvoice = new InvoiceClass(tempCustName, tempInvoiceNum);
 
 		// set the line items array of objects to the user's entries
-		try{
+		try {
 			for (int j = 0; j < tempQtyList.size(); j++) {
 
-				myInvoice.insertItemList(tempQtyList.get(j), tempDescList.get(j),
-						tempPriceList.get(j), tempInvoiceNum,
-						tempTaxableList.get(j), j);
-			}	
-		}catch (ArrayIndexOutOfBoundsException e){
-			System.out.println("Failed to save the line items.");			
-		}catch (ArrayStoreException e){
+				myInvoice.insertItemList(tempQtyList.get(j),
+						tempDescList.get(j), tempPriceList.get(j),
+						tempInvoiceNum, tempTaxableList.get(j), j);
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Failed to save the line items.");
+		} catch (ArrayStoreException e) {
 			System.out.println("Incompatible type assignment.");
 		}
-	
 
 		// print the invoice and the items for this invoice
 		myInvoice.printInvoice();
