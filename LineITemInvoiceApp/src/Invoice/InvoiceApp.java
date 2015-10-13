@@ -64,12 +64,12 @@ public class InvoiceApp {
 			// counter for the number of Line Items entered
 			indexCounter++;
 
-			System.out.print("\nQuit? ");
-			moreList = keyboard.next();
+			System.out.print("\nQuit? ('y' or 'n') ");
+			moreList = keyboard.next().toLowerCase();
 
 			System.out.println("----------------------");
 
-		} while (!moreList.equals("yes") && !moreList.equals("YES"));
+		} while (!moreList.equals("y"));
 		keyboard.close();
 
 		// create an invoice object

@@ -132,10 +132,10 @@ public class InvoiceClass {
 						"\t", "\t");
 				System.out.printf(" %.2f %s %s", tempLineItem.getItemQty(),
 						"\t", "\t");
-				System.out.printf(" %.2f %s %s", tempLineItem.getUnitPrice(),
+				System.out.printf(" %s %s %s", tempLineItem.getFormattedPrice(tempLineItem.getUnitPrice()),
 						"\t", "\t");
-				System.out.printf(" %.2f %n",
-						(tempLineItem.getItemQty() * tempLineItem
+				System.out.printf(" %s %n",
+						 tempLineItem.getFormattedPrice(tempLineItem.getItemQty() * tempLineItem
 								.getUnitPrice()));
 			
 		}

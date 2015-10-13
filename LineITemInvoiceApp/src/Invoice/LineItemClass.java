@@ -1,5 +1,7 @@
 package Invoice;
 
+import java.text.NumberFormat;
+
 public class LineItemClass {
 
 	private double itemQty;
@@ -54,6 +56,14 @@ public class LineItemClass {
 
 	public void setTaxable(boolean taxable) {
 		this.taxable = taxable;
+	}
+
+	public String getFormattedPrice(double amount) {
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
+		String amountStr = String.format("%.2f", amount);
+		amount = Double.parseDouble(amountStr);
+		return  currency.format(amount);
+		
 	}
 
 }
